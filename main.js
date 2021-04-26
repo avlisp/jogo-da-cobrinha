@@ -29,7 +29,25 @@ function criarCobrinha(){
     }
 }
 
+// evento para captar a tecla do teclado
+document.addEventListener('keydown', update);
+
+// funçao para chamar o evento
+function update (event) {
+    if (event.keyCode == 37 && direction != "right") direction = "left";
+    if (event.keyCode == 40 && direction != "down") direction = "up";
+    if (event.keyCode == 39 && direction != "left") direction = "right";
+    if (event.keyCode == 38 && direction != "up") direction = "down";
+}
+
 function iniciarJogo() {
+    // funcionabilidade para ela atravessar as paredes
+    if (snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
+    if (snake[0].x < 0 * box && direction == "left") snake[0].x = 16 * box;
+    if (snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
+    if (snake[0].y < 0 * box && direction == "up") snake[0].y = 16 * box;
+
+
     // chamando a funçao
     criarBG();
     criarCobrinha();
@@ -52,13 +70,15 @@ function iniciarJogo() {
         y: snakeY
     }
 
-    snake.unshift(newHead)
+    snake.unshift(newHead);
 }
 
 
 
 // variavel para iniciar jogo // 100 milisegundos
 let jogo = setInterval(iniciarJogo, 100);
+
+
 
 
 

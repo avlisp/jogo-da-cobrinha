@@ -12,6 +12,13 @@ snake[0] = {
 
 // variavel para direçao da criarCobrinha
 let direction = "right";
+// variavel para a comida da cobra
+let food = {
+    // math.random sempre retorna um numeor aleatorio até 1
+    // math.floor retorna um numero sem o ponto flutuante
+    x: Math.floor(Math.random() * 15 + 1) * box,
+    y: Math.floor(Math.random() * 15 + 1) * box
+}
 
 // funçao pra desenhar e definir o canvas
 function criarBG() {
@@ -29,6 +36,12 @@ function criarCobrinha(){
     }
 }
 
+// funçao para desenhar comida
+function drawFood() {
+    context.fillStyle = "red";
+    context.fillRect(food.x, food.y, box, box);
+}
+
 // evento para captar a tecla do teclado
 document.addEventListener('keydown', update);
 
@@ -40,6 +53,8 @@ function update (event) {
     if (event.keyCode == 38 && direction != "up") direction = "down";
 }
 
+
+// funçao principal
 function iniciarJogo() {
     // funcionabilidade para ela atravessar as paredes
     if (snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
@@ -51,6 +66,7 @@ function iniciarJogo() {
     // chamando a funçao
     criarBG();
     criarCobrinha();
+    drawFood();
 
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;

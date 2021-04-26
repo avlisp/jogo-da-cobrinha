@@ -1,0 +1,9 @@
+body {
+    height: 95vh;
+    width: 95;
+    display: flex;
+    justify-content: center; /* alinha horizontalmente no meio*/
+    align-items: center; /* alinha verticalmente no meio*/
+    flex-direction: column; /* deixa um elemento embaixo do outro */
+    color: rgb(44, 139, 44);
+}

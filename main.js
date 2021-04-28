@@ -14,12 +14,14 @@ snake[0] ={
 // variavel para direçao da criarCobrinha
 let direction = "right";
 
-// variavel para a comida da cobra
-let food ={
-    // math.random sempre retorna um numeor aleatorio até 1
-    // math.floor retorna um numero sem o ponto flutuante
-    x: Math.floor(Math.random() * 15 + 1) * box,
-    y: Math.floor(Math.random() * 15 + 1) * box
+let food = newFood()
+
+// Returns a food object on a random position
+function newFood() {
+    return {
+        x: Math.floor(Math.random() * 15 + 1) * box,
+        y: Math.floor(Math.random() * 15 + 1) * box
+    }
 }
 
 function drawBackground() {
@@ -84,8 +86,7 @@ function iniciarJogo(){
     if(snakeX != food.x || snakeY != food.y){
         snake.pop(); //pop tira o último elemento da lista
     }else{
-        food.x = Math.floor(Math.random() * 15 +1) * box;
-        food.y = Math.floor(Math.random() * 15 +1) * box;
+        food = newFood();
     }
     
     // variável que adiciona um nova cabeça

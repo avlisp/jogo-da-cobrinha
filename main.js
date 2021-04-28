@@ -41,6 +41,19 @@ function drawFood() {
     context.fillRect(food.x, food.y, box, box);
 }
 
+// Returns true if snake has collided
+function collided() {
+    snake.forEach(element => {
+        if (snake[0].x == element.x && snake[0].y == element.y) {
+            return true;
+        }
+    })
+}
+
+function stopGame() {
+    clearInterval(jogo);
+    alert('Game Over :( | Atualize sua página ');
+}
 
 document.addEventListener('keydown', listen);
 
@@ -60,12 +73,8 @@ function iniciarJogo(){
     if(snake[0].y > 15*box && direction == "down") snake[0].y = 0;
     if(snake[0].y < 0 && direction == 'up') snake[0].y = 16 * box;
     
-    // funcionabilidade para morte da cobrinha
-    for(i = 1; i < snake.length; i++){
-        if(snake[0].x == snake[i].x && snake[0].y == snake[i].y){
-            clearInterval(jogo);
-            alert('Game Over :( | Atualize sua página ');
-        }
+    if (collided()) {
+        stopGame();
     }
 
     // chamando a funçao

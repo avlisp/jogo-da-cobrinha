@@ -1,28 +1,30 @@
-// variáveis
-let canvas = document.getElementById("snake"); //criar elemento que irá rodar o jogo
-
-let context = canvas.getContext("2d"); // context renderiza o desenho
+let canvas = document.getElementById('snake');
+let context = canvas.getContext('2d');
 let box = 32;
 
-// variavel para cobra andar
-let snake = []; 
-snake[0] ={
-    x: 8 * box,
-    y: 8 * box
+let snake = [{x: 8 * box, y: 8 * box}];
+let direction = 'right';
+let food = newFood();
+
+// Main game loop
+function mainLoop() {
+    // Go through wall
+    if (snake[0].x > 15 * box && direction == 'right') snake[0].x = 0;
+    if (snake[0].x < 0 && direction == 'left') snake[0].x = 16 * box;
+    if (snake[0].y > 15 * box && direction == 'down') snake[0].y = 0;
+    if (snake[0].y < 0 && direction == 'up') snake[0].y = 16 * box;
+    
+    if (hasCollided()) stopGame();
+
+    drawBackground();
+    drawSnake();
+    drawFood();
+    moveSnake();
 }
 
-// variavel para direçao da criarCobrinha
-let direction = "right";
+setupControls();
+let game = setInterval(mainLoop, 100);
 
-let food = newFood()
-
-// Returns a food object on a random position
-function newFood() {
-    return {
-        x: Math.floor(Math.random() * 15 + 1) * box,
-        y: Math.floor(Math.random() * 15 + 1) * box
-    }
-}
 
 function drawBackground() {
     context.fillStyle = 'lightgreen';
@@ -41,34 +43,6 @@ function drawFood() {
     context.fillRect(food.x, food.y, box, box);
 }
 
-// Returns true if snake has collided
-function collided() {
-    for (i = 1; i < snake.length; i++) {
-        if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
-            return true;
-        }
-    }
-}
-
-function stopGame() {
-    clearInterval(jogo);
-    alert('Game Over :( | Atualize sua página ');
-}
-
-// Returns true if snake has eaten the food
-function scored(snakeHead) {
-    return snakeHead.x == food.x && snakeHead.y == food.y;
-}
-
-// Returns new position for snake head given the direction
-function updateHeadPos(head) {
-    if (direction == 'right') head.x += box;
-    if (direction == 'left') head.x -= box;
-    if (direction == 'up') head.y -= box;
-    if (direction == 'down') head.y += box;
-    return head;
-}
-
 function moveSnake() {
     // Copy snake head to a new object and update position
     let newHead = updateHeadPos({x: snake[0].x, y: snake[0].y});
@@ -81,39 +55,48 @@ function moveSnake() {
     snake.unshift(newHead);
 }
 
-document.addEventListener('keydown', listen);
-
-function listen(event) {
-    if (event.keyCode == 37 && direction != 'right') direction = 'left';
-    if (event.keyCode == 38 && direction != 'down') direction = 'up';
-    if (event.keyCode == 39 && direction != 'left') direction = 'right';
-    if (event.keyCode == 40 && direction != 'up') direction = 'down';
+// Returns new position for snake head given the direction
+function updateHeadPos(head) {
+    if (direction == 'right') head.x += box;
+    if (direction == 'left') head.x -= box;
+    if (direction == 'up') head.y -= box;
+    if (direction == 'down') head.y += box;
+    return head;
 }
 
-// funçao principal
-function iniciarJogo(){  
+// Returns true if snake has eaten the food
+function scored(snakeHead) {
+    return snakeHead.x == food.x && snakeHead.y == food.y;
+}
 
-    // funcionabilidade para ela atravessar as paredes
-    if(snake[0].x > 15*box && direction == "right") snake[0].x = 0;
-    if(snake[0].x < 0 && direction == 'left') snake[0].x = 16 * box;
-    if(snake[0].y > 15*box && direction == "down") snake[0].y = 0;
-    if(snake[0].y < 0 && direction == 'up') snake[0].y = 16 * box;
-    
-    if (collided()) {
-        stopGame();
+// Returns a food object on a random position
+function newFood() {
+    return {
+        x: Math.floor(Math.random() * 15 + 1) * box,
+        y: Math.floor(Math.random() * 15 + 1) * box
     }
-
-    // chamando a funçao
-    drawBackground();
-    drawSnake();
-    drawFood();
-
-    moveSnake();
 }
 
-// variavel para iniciar jogo // 100 milisegundos
-let jogo = setInterval(iniciarJogo, 100);
+// Returns true if snake has collided
+function hasCollided() {
+    for (i = 1; i < snake.length; i++) {
+        if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
+            return true;
+        }
+    }
+}
 
+function stopGame() {
+    clearInterval(game);
+    alert('Game Over :( | Atualize sua página ');
+}
 
-
-
+function setupControls() {
+    function listen(event) {
+        if (event.keyCode == 37 && direction != 'right') direction = 'left';
+        if (event.keyCode == 38 && direction != 'down') direction = 'up';
+        if (event.keyCode == 39 && direction != 'left') direction = 'right';
+        if (event.keyCode == 40 && direction != 'up') direction = 'down';
+    }
+    document.addEventListener('keydown', listen);
+}

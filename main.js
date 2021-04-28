@@ -69,6 +69,18 @@ function updateHeadPos(head) {
     return head;
 }
 
+function moveSnake() {
+    // Copy snake head to a new object and update position
+    let newHead = updateHeadPos({x: snake[0].x, y: snake[0].y});
+
+    if (scored(newHead)) {
+        food = newFood();
+    } else {
+        snake.pop();
+    }
+    snake.unshift(newHead);
+}
+
 document.addEventListener('keydown', listen);
 
 function listen(event) {
@@ -96,21 +108,7 @@ function iniciarJogo(){
     drawSnake();
     drawFood();
 
-    // Copy snake head to a new object
-    let snakeHead = {
-        x: snake[0].x,
-        y: snake[0].y
-    }
-
-    let newHead = updateHeadPos(snakeHead);
-
-    if (scored(newHead)) {
-        food = newFood();
-    } else {
-        snake.pop();
-    }
-
-    snake.unshift(newHead); //método unshift adiciona como primeiro quadradinho da cobrinha
+    moveSnake();
 }
 
 // variavel para iniciar jogo // 100 milisegundos

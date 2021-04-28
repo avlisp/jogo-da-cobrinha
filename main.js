@@ -22,12 +22,9 @@ let food ={
     y: Math.floor(Math.random() * 15 + 1) * box
 }
 
-// funçao pra desenhar e definir o canvas
-function criarBG(){
-    context.fillStyle = "lightgreen";
-
-    // fillrect define a posiçao x, y, altura e largura
-    context.fillRect(0, 0, 16*box, 16*box); //desenha o retângulo usando x e y e a largura e altura setadas
+function drawBackground() {
+    context.fillStyle = 'lightgreen';
+    context.fillRect(0, 0, 16 * box, 16 * box);
 }
 
 function criarCobrinha (){
@@ -73,7 +70,7 @@ function iniciarJogo(){
     }
 
     // chamando a funçao
-    criarBG();
+    drawBackground();
     criarCobrinha();
     drawFood();
 

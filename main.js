@@ -60,6 +60,15 @@ function scored(snakeHead) {
     return snakeHead.x == food.x && snakeHead.y == food.y;
 }
 
+// Returns new position for snake head given the direction
+function updateHeadPos(head) {
+    if (direction == 'right') head.x += box;
+    if (direction == 'left') head.x -= box;
+    if (direction == 'up') head.y -= box;
+    if (direction == 'down') head.y += box;
+    return head;
+}
+
 document.addEventListener('keydown', listen);
 
 function listen(event) {
@@ -87,25 +96,18 @@ function iniciarJogo(){
     drawSnake();
     drawFood();
 
-    let snakeX = snake[0].x;
-    let snakeY = snake[0].y;
+    // Copy snake head to a new object
+    let snakeHead = {
+        x: snake[0].x,
+        y: snake[0].y
+    }
 
-    // coordenadas onde a cobrinha vai seguir
-    if(direction == "right") snakeX += box; // se a direçao for igual a right adicione 1 a box (quadradinho) na posiçao x
-    if(direction == "left") snakeX -= box; // se a direçao for igual a left subtraia 1 a box (quadradinho) na posiçao x
-    if (direction == "up") snakeY -= box;
-    if(direction == "down") snakeY += box;
-    
-    if (scored(snakeHead)) {
+    let newHead = updateHeadPos(snakeHead);
+
+    if (scored(newHead)) {
         food = newFood();
     } else {
         snake.pop();
-    }
-    
-    // variável que adiciona um nova cabeça
-    let newHead ={
-        x: snakeX,
-        y: snakeY
     }
 
     snake.unshift(newHead); //método unshift adiciona como primeiro quadradinho da cobrinha

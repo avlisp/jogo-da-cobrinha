@@ -43,11 +43,11 @@ function drawFood() {
 
 // Returns true if snake has collided
 function collided() {
-    snake.forEach(element => {
-        if (snake[0].x == element.x && snake[0].y == element.y) {
+    for (i = 1; i < snake.length; i++) {
+        if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
             return true;
         }
-    })
+    }
 }
 
 function stopGame() {

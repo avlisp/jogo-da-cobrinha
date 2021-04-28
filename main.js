@@ -55,6 +55,11 @@ function stopGame() {
     alert('Game Over :( | Atualize sua página ');
 }
 
+// Returns true if snake has eaten the food
+function scored(snakeHead) {
+    return snakeHead.x == food.x && snakeHead.y == food.y;
+}
+
 document.addEventListener('keydown', listen);
 
 function listen(event) {
@@ -90,12 +95,11 @@ function iniciarJogo(){
     if(direction == "left") snakeX -= box; // se a direçao for igual a left subtraia 1 a box (quadradinho) na posiçao x
     if (direction == "up") snakeY -= box;
     if(direction == "down") snakeY += box;
-
-    // funçao para aumentar/diminuir a cobrinha caso ela passe pela comida
-    if(snakeX != food.x || snakeY != food.y){
-        snake.pop(); //pop tira o último elemento da lista
-    }else{
+    
+    if (scored(snakeHead)) {
         food = newFood();
+    } else {
+        snake.pop();
     }
     
     // variável que adiciona um nova cabeça

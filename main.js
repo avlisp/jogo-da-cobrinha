@@ -39,15 +39,14 @@ function drawFood() {
     context.fillRect(food.x, food.y, box, box);
 }
 
-// evento para captar a tecla do teclado
-document.addEventListener('keydown', update);
 
-// funçao para chamar o evento
-function update(event){
-    if(event.keyCode == 37 && direction != 'right') direction = 'left';
-    if(event.keyCode == 38 && direction != 'down') direction = 'up';
-    if(event.keyCode == 39 && direction != 'left') direction = 'right';
-    if(event.keyCode == 40 && direction != 'up') direction = 'down';
+document.addEventListener('keydown', listen);
+
+function listen(event) {
+    if (event.keyCode == 37 && direction != 'right') direction = 'left';
+    if (event.keyCode == 38 && direction != 'down') direction = 'up';
+    if (event.keyCode == 39 && direction != 'left') direction = 'right';
+    if (event.keyCode == 40 && direction != 'up') direction = 'down';
 }
 
 // funçao principal

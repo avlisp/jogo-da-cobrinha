@@ -27,12 +27,11 @@ function drawBackground() {
     context.fillRect(0, 0, 16 * box, 16 * box);
 }
 
-function criarCobrinha (){
-    for(i = 0; i < snake.length; i++){
-        // i é o corpo da cobrinha
-        context.fillStyle = "green";
-        context.fillRect(snake[i].x, snake[i].y, box, box);
-    }
+function drawSnake() {
+    snake.forEach(element => {
+        context.fillStyle = 'green';
+        context.fillRect(element.x, element.y, box, box);
+    })
 }
 
 // funçao para desenhar comida
@@ -71,7 +70,7 @@ function iniciarJogo(){
 
     // chamando a funçao
     drawBackground();
-    criarCobrinha();
+    drawSnake();
     drawFood();
 
     let snakeX = snake[0].x;

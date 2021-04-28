@@ -34,9 +34,8 @@ function drawSnake() {
     })
 }
 
-// funçao para desenhar comida
-function drawFood (){
-    context.fillStyle = "red";
+function drawFood() {
+    context.fillStyle = 'red';
     context.fillRect(food.x, food.y, box, box);
 }
 

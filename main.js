@@ -2,8 +2,9 @@ let canvas = document.getElementById('snake');
 let context = canvas.getContext('2d');
 let box = 32;
 
-let snake = [{x: 8 * box, y: 8 * box}];
+let snake = [{ x: 8 * box, y: 8 * box }];
 let direction = 'right';
+let score = 0;
 let food = newFood();
 
 // Main game loop
@@ -13,13 +14,14 @@ function mainLoop() {
     if (snake[0].x < 0 && direction == 'left') snake[0].x = 16 * box;
     if (snake[0].y > 15 * box && direction == 'down') snake[0].y = 0;
     if (snake[0].y < 0 && direction == 'up') snake[0].y = 16 * box;
-    
+
     if (hasCollided()) stopGame();
 
     drawBackground();
     drawSnake();
     drawFood();
     moveSnake();
+    updateScore();
 }
 
 setupControls();
@@ -45,7 +47,7 @@ function drawFood() {
 
 function moveSnake() {
     // Copy snake head to a new object and update position
-    let newHead = updateHeadPos({x: snake[0].x, y: snake[0].y});
+    let newHead = updateHeadPos({ x: snake[0].x, y: snake[0].y });
 
     if (scored(newHead)) {
         food = newFood();
@@ -53,6 +55,13 @@ function moveSnake() {
         snake.pop();
     }
     snake.unshift(newHead);
+}
+
+function updateScore() {
+    if (score != snake.length - 1) {
+        score = snake.length - 1;
+        document.getElementById('score').innerHTML = score;
+    }
 }
 
 // Returns new position for snake head given the direction

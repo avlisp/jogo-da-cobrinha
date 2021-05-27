@@ -29,19 +29,19 @@ let game = setInterval(mainLoop, 100);
 
 
 function drawBackground() {
-    context.fillStyle = 'lightgreen';
+    context.fillStyle = '#2b2d2d';
     context.fillRect(0, 0, 16 * box, 16 * box);
 }
 
 function drawSnake() {
     snake.forEach(element => {
-        context.fillStyle = 'green';
+        context.fillStyle = '#ef67a5';
         context.fillRect(element.x, element.y, box, box);
     })
 }
 
 function drawFood() {
-    context.fillStyle = 'red';
+    context.fillStyle = '#f4b400';
     context.fillRect(food.x, food.y, box, box);
 }
 
@@ -97,7 +97,8 @@ function hasCollided() {
 
 function stopGame() {
     clearInterval(game);
-    alert('Game Over :( | Atualize sua página ');
+    let gameOverMessage = `Game Over! Your score: ${score}`;
+    document.getElementById('score-display').innerHTML = gameOverMessage;
 }
 
 function setupControls() {

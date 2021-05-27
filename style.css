@@ -1,9 +1,23 @@
 body {
+    font-family: sans-serif;
     height: 95vh;
     width: 95;
     display: flex;
     justify-content: center; /* alinha horizontalmente no meio*/
     align-items: center; /* alinha verticalmente no meio*/
     flex-direction: column; /* deixa um elemento embaixo do outro */
-    color: rgb(44, 139, 44);
+    color: #f48020;
+    background-color: #111;
+}
+
+#score-display {
+    color: #00e575;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+#game-container {
+    padding: 5px 5px 0px 5px;
+    border-radius: 10px;
+    background-color: #2b2d2d;
 }
